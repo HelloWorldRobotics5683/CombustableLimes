@@ -10,20 +10,26 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.VictorSP;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 public class SpinnyBoi extends SubsystemBase {
   /**
    * Creates a new SpinnyBoi.
    */
+  
   public static VictorSP SpinSpin = new VictorSP(RobotMap.RED775);
+  public static VictorSP SpinTwin = new VictorSP(RobotMap.REDMOTOR2);
 
+  public static SpeedControllerGroup SCG;
+// TODO: if is already inverted, then fix
   public SpinnyBoi() {
-
+  SpinTwin.setInverted(true);
+  SCG = new SpeedControllerGroup(SpinSpin, SpinTwin);
   }
 
   public void SpinsTheSpinSpin(double speed) {
-    SpinSpin.set(speed);
-    System.out.println("Method is alive: " + SpinSpin.isAlive());
+    SCG.set(speed);
+
   }
 
 

@@ -25,5 +25,5 @@ public final class RobotMap {
 
     // VictorSP motor controllers
     public static final int RED775 = 0;
-
+    public static final int REDMOTOR2 = 1;
 }

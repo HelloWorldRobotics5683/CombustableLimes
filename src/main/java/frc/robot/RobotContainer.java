@@ -31,7 +31,8 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final AppleMapsCommand amcCommand = new AppleMapsCommand(amc);
   private final LimesCommand lsCommand = new LimesCommand(ls);
-  private final FruitRollUp fru = new FruitRollUp();
+  private final FruitRollUp fru = new FruitRollUp(); 
+
   private final SpinnyBoi SB = new SpinnyBoi();
   
 
@@ -70,8 +71,9 @@ public class RobotContainer {
     JoystickButton b11 = new JoystickButton(joy, 11);
     JoystickButton b12 = new JoystickButton(joy, 12);
 
-    b1.whileHeld(new SpinnyBoiCommand(SB, joy.getThrottle()));
+    b1.whileHeld(new SpinnyBoiCommand(SB, 0.5)).whenInactive(new SpinnyBoiCommand(SB, 0.0));
     b2.whenPressed(amcCommand);
+    //b3.whenPressed(lsCommand);
     
   }
 
