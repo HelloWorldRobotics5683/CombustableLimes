@@ -6,25 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
+import frc.robot.subsystems.FruitPickerSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
-import java.util.function.DoubleSupplier;
-public class FruitRollUpCommand extends CommandBase {
-private final FruitRollUp fru;
-DoubleSupplier xVal;
-DoubleSupplier yVal;
-DoubleSupplier zVal;
-  
-  
-  //private final RobotContainer m_oi = new RobotContainer();  
 
+public class FruitPickerCommand extends CommandBase {
+  /**
+   * Creates a new FruitPickerCommand.
+   */
 
-  public FruitRollUpCommand(FruitRollUp subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
-    xVal = x;
-    yVal = y;
-    zVal = z;
-    fru = subsystem;
+  boolean finished;
+  FruitPickerSubsystem fpSubsystem;
+  public FruitPickerCommand(FruitPickerSubsystem subsystem, boolean yeet) {
+    fpSubsystem = subsystem;
+    finished = yeet;
     addRequirements(subsystem);
   }
 
@@ -36,19 +30,18 @@ DoubleSupplier zVal;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    fru.feed();
-    fru.DriveMecanumGeneric(xVal.getAsDouble(), yVal.getAsDouble(),-1 * zVal.getAsDouble());
-    
+    fpSubsystem.consume(0.8);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    fpSubsystem.consume(0.0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

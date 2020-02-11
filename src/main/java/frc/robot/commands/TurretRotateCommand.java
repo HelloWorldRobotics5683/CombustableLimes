@@ -6,49 +6,54 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.*;
-import java.util.function.DoubleSupplier;
-public class FruitRollUpCommand extends CommandBase {
-private final FruitRollUp fru;
-DoubleSupplier xVal;
-DoubleSupplier yVal;
-DoubleSupplier zVal;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class TurretRotateCommand extends CommandBase {
+  /**
+   * Creates a new TurretRotateCommand.
+   */
+  LimesSubsystem lsSubs;
+  TurretRotateSubsystem TRS;
+  boolean donezo;
+  double target;
+  double error;
   
   
-  //private final RobotContainer m_oi = new RobotContainer();  
 
+  public TurretRotateCommand(LimesSubsystem lsSubsystem, TurretRotateSubsystem turRotSub, double errorRange) {
+    lsSubs = lsSubsystem;
+    TRS = turRotSub;
+    error = errorRange;
 
-  public FruitRollUpCommand(FruitRollUp subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
-    xVal = x;
-    yVal = y;
-    zVal = z;
-    fru = subsystem;
-    addRequirements(subsystem);
+    addRequirements(TRS, lsSubs);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    donezo = false;
+    target = TRS.setTarget(lsSubs.getXDisplacement(), lsSubs.getDistance());
+    
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    fru.feed();
-    fru.DriveMecanumGeneric(xVal.getAsDouble(), yVal.getAsDouble(),-1 * zVal.getAsDouble());
-    
+    donezo = TRS.rotate(target, error);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    TRS.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return donezo;
   }
 }

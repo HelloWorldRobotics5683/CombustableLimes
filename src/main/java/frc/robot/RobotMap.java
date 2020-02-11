@@ -17,13 +17,25 @@ package frc.robot;
  */
 public final class RobotMap {
    
-    // TalonSRX motor controllers
+    // Drive Motors
+    // Talon SRX motor controllers
     public static final int FL = 1;
     public static final int FR = 2;
     public static final int RL = 3;
     public static final int RR = 4;
+    
+    // Turret Motors
+    // Talon SRX motor controllers
+    public static final int ROTATION = 5;
 
     // VictorSP motor controllers
-    public static final int RED775 = 0;
+    public static final int REDMOTOR1 = 0;
     public static final int REDMOTOR2 = 1;
+    public static final int FRUPICK = 2;
+    public static final int CONVEYOR = 3;
+    // Color Wheel motors
+    // Victor SPX motor controller
+    public static final int COLORWHEEL = 6;
+    //Constants
+    public static final double TICKS_DEGREES = 91.02;
 }

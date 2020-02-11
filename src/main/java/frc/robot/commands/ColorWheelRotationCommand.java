@@ -8,37 +8,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.subsystems.*;
-import java.util.function.DoubleSupplier;
-public class FruitRollUpCommand extends CommandBase {
-private final FruitRollUp fru;
-DoubleSupplier xVal;
-DoubleSupplier yVal;
-DoubleSupplier zVal;
-  
-  
-  //private final RobotContainer m_oi = new RobotContainer();  
 
-
-  public FruitRollUpCommand(FruitRollUp subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
-    xVal = x;
-    yVal = y;
-    zVal = z;
-    fru = subsystem;
+public class ColorWheelRotationCommand extends CommandBase {
+  ColorSensorSubsystem cs;
+  int count;
+  Color initial;
+  /**
+   * Creates a new ColorWheelRotation.
+   */
+  public ColorWheelRotationCommand(ColorSensorSubsystem subsystem) {
+    cs = subsystem;
     addRequirements(subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    count = 1;
+    initial = cs.currentColor();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    fru.feed();
-    fru.DriveMecanumGeneric(xVal.getAsDouble(), yVal.getAsDouble(),-1 * zVal.getAsDouble());
-    
+    count = cs.colorCounter(initial, count);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +44,10 @@ DoubleSupplier zVal;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(count < 24) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

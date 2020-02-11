@@ -6,25 +6,19 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
+import frc.robot.subsystems.TurretRotateSubsystem;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.*;
-import java.util.function.DoubleSupplier;
-public class FruitRollUpCommand extends CommandBase {
-private final FruitRollUp fru;
-DoubleSupplier xVal;
-DoubleSupplier yVal;
-DoubleSupplier zVal;
-  
-  
-  //private final RobotContainer m_oi = new RobotContainer();  
 
-
-  public FruitRollUpCommand(FruitRollUp subsystem, DoubleSupplier x, DoubleSupplier y, DoubleSupplier z) {
-    xVal = x;
-    yVal = y;
-    zVal = z;
-    fru = subsystem;
+public class TurretRotateManualCommand extends CommandBase {
+  /**
+   * Creates a new TurretRotateManualCommand.
+   */
+  private final TurretRotateSubsystem TRS;
+  double throttle;
+  public TurretRotateManualCommand(TurretRotateSubsystem subsystem, double speed) {
+    TRS = subsystem;
+    throttle = speed;
     addRequirements(subsystem);
   }
 
@@ -36,8 +30,7 @@ DoubleSupplier zVal;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    fru.feed();
-    fru.DriveMecanumGeneric(xVal.getAsDouble(), yVal.getAsDouble(),-1 * zVal.getAsDouble());
+    TRS.setPower(throttle);
     
   }
 
@@ -49,6 +42,6 @@ DoubleSupplier zVal;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

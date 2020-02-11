@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LimesSubsystem extends SubsystemBase {
+  //Sets up the NetworkTables for us to pass inputs into
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
@@ -29,7 +30,19 @@ public class LimesSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  public double getArea(){
-    return ta.getDouble(0.0);
+  public double getXDisplacement(){
+    return tx.getDouble(0);
   }
+  public double getArea(){
+    return ta.getDouble(0);
+  }
+  public double getYdisplacement(){
+    return ty.getDouble(0);
+  }
+  //since trigonometric functions in java return radians, to do proper calculations, convert degrees to radians
+  public double getDistance(){
+    double distance = (98.0-31.0) / (Math.tan(Math.toRadians(24.4 + getYdisplacement())));
+    return distance;
+  }
+ 
 }

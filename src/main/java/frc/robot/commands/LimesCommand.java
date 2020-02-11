@@ -25,8 +25,8 @@ public class LimesCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("Area of target: " + ls.getArea());
-  }
+    System.out.println(ls.getDistance());
+     }
 
   // Called once the command ends or is interrupted.
   @Override

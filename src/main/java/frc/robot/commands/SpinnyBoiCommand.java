@@ -15,10 +15,10 @@ public class SpinnyBoiCommand extends CommandBase {
    * Creates a new SpinnyBoiCommand.
    */
   private final SpinnyBoi SB;
-  double yeeter;
+  double shotPower;
   
-  public SpinnyBoiCommand(SpinnyBoi subsystem, double yeet) {
-    yeeter = yeet;
+  public SpinnyBoiCommand(SpinnyBoi subsystem, double power) {
+    shotPower = power;
     SB = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
@@ -33,7 +33,7 @@ public class SpinnyBoiCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SB.SpinsTheSpinSpin(yeeter);
+    SB.TurretShooter(shotPower);
     
   }
 
